@@ -1,28 +1,33 @@
-const path = require("path");
-const fs = require("fs");
+const { join } = require("path");
+const { writeFile } = require("fs");
 
-const dataPath = path.join(__dirname, "../chirps.json");
+let filePath = join(__dirname, "chirps.json");
 
 let chirps = [
-  { author: "Simmon", body: "Let's play corners!" },
-  { author: "Wilem", body: "You're a dreadful partner." },
-  { author: "Simmon", body: "Oh, please. I can play well enough." },
-  { author: "Wilem", body: "I'll play if Kvothe here joins.." },
-  { author: "Kvothe", body: "I could play a round. Who will be our fourth?" }
+  { 
+    author: "The Darkness", 
+    body: "I believe in a thing called love" 
+  }, 
+  { 
+    author: "The Darkness", 
+    body: "Just listen to the rhythm of my heart" 
+  }, 
+  { 
+    author: "The Darkness", 
+    body: "There's a chance we could make it now" 
+  }, 
+  { 
+    author: "The Darkness", 
+    body: "We'll be rocking 'til the sun goes down" 
+  }, 
+  { 
+    author: "The Darkness", 
+    body: "I believe in a thing called love, hoo-ooh" 
+  },
 ];
 
-fs.writeFileSync(dataPath, chirps, err => {
-  if (err) console.log(err);
-});
+writeFile(filePath, JSON.stringify(chirps), (err) => {
+  if (err) return console.error(err);
 
-fs.readFile(
-  dataPath,
-  {
-    encoding: "UTF-8"
-  },
-  () => {
-    chirps.forEach(post => {
-      console.log(`${post.body} \n -${post.author} \n`);
-    });
-  }
-);
+  console.log("Wrote chirps!");
+});
